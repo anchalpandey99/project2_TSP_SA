@@ -1,0 +1,38 @@
+ What is TSP?
+
+-> The TSP is a classic optimization problem where the goal is to find the most cost-effective way to visit a set of cities, each exactly once, and return to the starting city.
+   This is a computationally tough NP Hard problem because of it's factorial number of possible tours from which we have to find the best possible route to go to a city once and return back from there and no city will get repeated twice.
+
+What is Simulated annealing algorithm?
+-> Simulated Annealing (SA) is a probabilistic optimization technique inspired by the annealing process in metallurgy, where materials are heated and then slowly cooled to attain a stable structure.
+   The algorithm is particularly effective for problems with a large solution space, such as the TSP, as it allows the search to "escape" local minima and potentially reach a global minimum.
+
+Key componenets of simulated annealing algorithm -
+1.	Initialization: SA starts with a randomly generated initial solution.
+
+2.	Temperature (T): Controls the probability of accepting worse solutions to escape local minima. High temperatures allow worse solutions to be accepted with higher probability, enabling exploration.
+
+3.	Cooling Schedule: The temperature decreases at each iteration according to a cooling rate, usually a factor α\alphaα such that T=T×αT = T \times \alphaT=T×α.
+
+4.	Acceptance Probability: If a new solution has a lower cost than the current solution, it’s accepted immediately. If it has a higher cost, it is accepted with a probability given by: P=e−ΔETP = e^{\frac{-\Delta E}{T}}P=eT−ΔE where ΔE\Delta EΔE is the difference in cost, and TTT is the temperature. This probability decreases as the temperature cools.
+
+Code explanation -:
+1. Importing the header files to properly run our code.
+
+2. Define the Problem Parameters:
+-> Then we defined a variable named "city" to store the number of cities we are taking for our problem.
+
+3. Then defined a 2D array which shows the cost of travelling between cities.
+
+4. Now we created a function named "calculateDistance" which calculates the total distance of tour covered. It runs a loop which iterates until "i < city-1" and returns the distance by adding up the distance from the last tour and distance of the next city.
+
+Now comes the important part of the code i.e., simulated annealing. In this we created a vector  of type int and within that we created two vectors of type int naming currentTour, bestTour.
+currentTour stores the current city we are in and bestTour holds the bestest city among all the cities we covered so far. If the current city holds the bestest city then bestTour stores the value of currentTour. 
+-> The loop runs for a fixed number of "maxIter" iterations or until the temperature T gets below a minimum (finalTemp). Each iteration represents one attempt to improve the current solution.
+->In the next step we randomly pick two cities in currentTour and swap their positions to get a “neighbor” tour. This minor change in the order gives a slightly different tour.
+
+_> We use calculateDistance to get newDist, the distance for this new tour.If newDist is better (lower) than currentDist, we accept it as our new currentTour.If newDist is worse, we might still accept it with a probability based on the difference in distance and the current temperature If newDist is worse, we might still accept it with a probability based on the difference in distance and the current temperature If newDist is worse, we might still accept it with a probability based on the difference in distance and the current temperature 
+𝑇.
+-> Every time we go through the loop, we reduce the temperature slightly by multiplying it by a factor alpha (e.g., 0.995).
+-> After all iterations, we return bestTour, which holds the shortest route found by the algorithm.
+-> In the main function we have set the parameters for each variables to run the simulated annealing and wrote our cout function to get the best route.
